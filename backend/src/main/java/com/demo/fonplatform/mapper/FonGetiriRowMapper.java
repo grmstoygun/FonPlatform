@@ -1,6 +1,6 @@
-package com.demo.toygunproject.mapper;
+package com.demo.fonplatform.mapper;
 
-import com.demo.toygunproject.model.FonGetiri;
+import com.demo.fonplatform.model.FonGetiri;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

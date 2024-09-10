@@ -1,4 +1,4 @@
-package com.demo.toygunproject.exception;
+package com.demo.fonplatform.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

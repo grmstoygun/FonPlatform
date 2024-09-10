@@ -1,4 +1,4 @@
-package com.demo.toygunproject.controller.request;
+package com.demo.fonplatform.controller.request;
 
 import lombok.*;
 

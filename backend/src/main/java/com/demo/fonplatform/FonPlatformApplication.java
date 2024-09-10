@@ -1,4 +1,4 @@
-package com.demo.toygunproject;
+package com.demo.fonplatform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,10 +7,10 @@ import java.sql.*;
 
 
 @SpringBootApplication
-public class ToygunProjectApplication {
+public class FonPlatformApplication {
 
 	public static void main(String[] args) throws SQLException {
-		SpringApplication.run(ToygunProjectApplication.class, args);
+		SpringApplication.run(FonPlatformApplication.class, args);
 //		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 //		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521/FREE");
 //		dataSource.setUsername("TOYGUN");

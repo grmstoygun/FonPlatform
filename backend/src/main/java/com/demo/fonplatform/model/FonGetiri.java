@@ -1,4 +1,4 @@
-package com.demo.toygunproject.model;
+package com.demo.fonplatform.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
