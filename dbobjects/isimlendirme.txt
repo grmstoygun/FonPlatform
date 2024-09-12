@@ -1,0 +1,5 @@
+SCHEMA FONPORT = PLATFORM
+TB_FPORTFON = TB_FONLAR
+TB_FPORTKURUCU = TB_KURUCULAR
+
+yatırım getiri oranı, piyasa getiri oranı

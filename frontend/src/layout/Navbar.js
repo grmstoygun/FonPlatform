@@ -17,6 +17,9 @@ export default function Navbar() {
         <li class="nav-item">
           <a class="nav-link" href="/getiritalep">Getiriler</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/fonkarsilastirma">Fon Karşılaştırma</a>
+        </li>
       </ul>
       <button class="btn btn-outline-light" type="submit">Log In</button>
     </div>
