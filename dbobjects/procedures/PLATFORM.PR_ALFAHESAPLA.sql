@@ -26,4 +26,12 @@ begin
   update PLATFORM.TB_KATSAYIVEORANLAR k set k.alfadeg = v_alfakatsayi
   where k.fonkodu = p_fonkodu;
   
+  exception
+       when NO_DATA_FOUND then
+         raise_application_error(-20002, 'Alfa Katsayisi Hesaplanirken Veri Bulunamadi. ' || sqlerrm);
+       when VALUE_ERROR then 
+         raise_application_error(-20003, 'Alfa Katsayisi Hesaplanirken Veri Hatasi Alindi. ' || sqlerrm);
+       when others then
+         raise_application_error(-20001, 'Alfa Katsayisi Hesaplanirken Hata Alindi: ' || sqlerrm);
+  
 end;

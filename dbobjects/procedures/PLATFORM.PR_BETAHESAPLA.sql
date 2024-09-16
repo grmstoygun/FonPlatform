@@ -21,4 +21,14 @@ begin
      v_betakatsayi := v_kovyatirimpiyasa / v_varpiyasagetoran;
      
      insert into PLATFORM.TB_KATSAYIVEORANLAR (FONKODU, BETADEG) values (p_fonkodu, v_betakatsayi);
+     
+     exception
+       when NO_DATA_FOUND then
+         raise_application_error(-20002, 'Beta Katsayisi Hesaplanirken Veri Bulunamadi. ' || sqlerrm);
+       when VALUE_ERROR then 
+         raise_application_error(-20003, 'Beta Katsayisi Hesaplanirken Veri Hatasi Alindi. ' || sqlerrm);
+       when ZERO_DIVIDE then
+         insert into PLATFORM.TB_KATSAYIVEORANLAR (FONKODU, BETADEG) values (p_fonkodu, 0);
+       when others then
+         raise_application_error(-20001, 'Beta Katsayisi Hesaplanirken Hata Alindi: ' || sqlerrm);
 end;
