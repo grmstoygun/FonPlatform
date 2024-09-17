@@ -12,13 +12,13 @@ import lombok.Setter;
 public class RiskBazliBilgi {
     private String fonkodu;
     private String fonunvan;
-    private int fonturkod;
+    private Integer fonturkod;
     private String sfonturaciklama;
     private String kurucukodu;
-    private float betadeg;
-    private float alfadeg;
-    private float sortinodeg;
-    private float sharpedeg;
-    private float sterlingdeg;
-    private float treynordeg;
+    private Float betadeg;
+    private Float alfadeg;
+    private Float sortinodeg;
+    private Float sharpedeg;
+    private Float sterlingdeg;
+    private Float treynordeg;
 }

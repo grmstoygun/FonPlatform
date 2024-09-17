@@ -12,8 +12,8 @@ import lombok.Setter;
 public class RiskBazliBilgiListRequest {
     private String fontipi;
     private String kurucukod;
-    private String fonturkod;
-    private String fongrubu;
-    private String sfonturkod;
+    private Integer fonturkod;
+    private Integer fongrubu;
+    private Integer sfonturkod;
     private String fonturaciklama;
 }

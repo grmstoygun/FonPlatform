@@ -1,5 +1,6 @@
 package com.demo.fonplatform.daoServices.impl;
 
+import com.demo.fonplatform.controller.response.FonGetiriResponse;
 import com.demo.fonplatform.daoServices.FonGetiriDaoService;
 import com.demo.fonplatform.mapper.FonGetiriRowMapper;
 import com.demo.fonplatform.model.FonGetiri;
@@ -22,7 +23,7 @@ public class FonGetiriDaoServiceImpl implements FonGetiriDaoService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<FonGetiri> searchFonGetiri(FonGetiriRequest fonGetiriRequest) throws DataAccessException {
+    public FonGetiriResponse searchFonGetiri(FonGetiriRequest fonGetiriRequest) throws DataAccessException {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("PR_GETIRILISTELE")
                 .withSchemaName("TOYGUN")
@@ -33,6 +34,6 @@ public class FonGetiriDaoServiceImpl implements FonGetiriDaoService {
                 .addValue("p_fonkodu", fonGetiriRequest.getKod());
 
         Map<String, Object> result = simpleJdbcCall.execute(inParams);
-        return (List<FonGetiri>) result.get("po_cur");
+        return new FonGetiriResponse(((List<FonGetiri>) result.get("po_cur")).getFirst());
     }
 }

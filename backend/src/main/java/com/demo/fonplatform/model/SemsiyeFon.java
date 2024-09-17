@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SemsiyeFon {
-    private int sfonturu;
+    private Integer sfonturu;
     private String sfonaciklama;
 }

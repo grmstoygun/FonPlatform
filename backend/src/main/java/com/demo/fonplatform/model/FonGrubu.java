@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FonGrubu {
-    private int fongrubu;
+    private Integer fongrubu;
     private String fongrupaciklama;
 }

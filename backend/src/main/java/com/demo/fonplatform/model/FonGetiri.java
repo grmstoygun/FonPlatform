@@ -13,8 +13,8 @@ import org.springframework.data.annotation.Id;
 public class FonGetiri {
     @Id
     private String kod;
-    private float yg;
-    private float ag;
-    private float aag;
-    private float uag;
+    private Float yg;
+    private Float ag;
+    private Float aag;
+    private Float uag;
 }
