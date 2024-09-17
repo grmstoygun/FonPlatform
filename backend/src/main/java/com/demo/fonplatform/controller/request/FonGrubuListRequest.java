@@ -1,4 +1,4 @@
-package com.demo.fonplatform.model;
+package com.demo.fonplatform.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Semsiye {
-    private int sfonturu;
-    private String sfonaciklama;
+public class FonGrubuListRequest {
 }

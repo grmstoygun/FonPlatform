@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FonRiskKatsayilari {
+public class RiskBazliBilgi {
     private String fonkodu;
     private String fonunvan;
     private int fonturkod;
