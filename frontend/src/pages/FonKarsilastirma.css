@@ -1,0 +1,48 @@
+.anacontainer{
+    width: 50%;
+}
+
+.fonkarsilastirma{
+    text-align: left;
+}
+
+.yazitipi{
+    text-align: left;
+    font-size: 14px;
+    color: #2f6bcc;
+}
+
+.tableheader{
+    color: #2f6bcc;
+}
+
+.radiolabel{
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+.benimselect{
+    height: 30px;
+    font-size: 12px;
+}
+
+.benimheader{
+    background-color: #0F8BE9;
+    font-size: 14px;
+    color: white;
+}
+
+.benimfiltre{
+    width: 200px;
+    height: 30px;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.filtrele{
+    text-align: right;
+    font-size: 14px;
+    color: #2f6bcc;
+    margin-top: 5px;
+}
+
