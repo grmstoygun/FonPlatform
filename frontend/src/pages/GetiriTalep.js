@@ -45,7 +45,7 @@ const GetiriTalepPage = ({setResponseData}) => {
 
 
   return (
-    <div className='container'>
+    <div className='container anacontainer'>
         <div className='row'>
             <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
                 <h2 className='text-center m-4'>Fon Kodu Giriniz</h2>

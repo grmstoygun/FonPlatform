@@ -9,7 +9,7 @@ const GetiriSonuc = ({responseData}) => {
   }
   const { data } = responseData;
   return (
-    <div className='container'>
+    <div className='container anacontainer'>
       <div className='py-4'>
       <h1>{data.kod} Fon Getirileri</h1>
       <table className="table">

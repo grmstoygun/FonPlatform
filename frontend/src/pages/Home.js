@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import "./css/Home.css";
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <div>
+    <section className="hero-section"></section>
+    </div>
   )
 }

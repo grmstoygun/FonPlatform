@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./FonKarsilastirma.css";
+import "./css/FonKarsilastirma.css";
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 export default function FonKarsilastirma() {
@@ -23,6 +23,12 @@ export default function FonKarsilastirma() {
   const [emkFonTuruList, setEmkFonTuruList] = useState([]);
 
   const [riskBazliBilgiler, setRiskBazliBilgiler] = useState([]);
+
+  const[filtrelenecek, setFiltrelenecek] = useState("");
+
+  const filtreBilgiler = riskBazliBilgiler.filter((fon) => {
+    return (fon.fonunvan.toLowerCase().includes(filtrelenecek.toLowerCase()) || fon.fonkodu.toLowerCase().includes(filtrelenecek.toLowerCase()));
+  });
 
   // YAT fonları için kurucu listesini çek
   useEffect(() => {
@@ -157,10 +163,10 @@ export default function FonKarsilastirma() {
   return (
     <div className="container anacontainer">
       <div className="row">
-        <div className="col-4">
+        <div className="col-6">
           <h4 className="fonkarsilastirma">Fon Karşılaştırma</h4>
         </div>
-        <div className="col-8">
+        <div className="col-6">
           <div className="row">
             <div className="col-md-auto">
               <p className="yazitipi">
@@ -302,13 +308,15 @@ export default function FonKarsilastirma() {
                       className="form-control benimfiltre"
                       id="filter"
                       placeholder="Ara"
+                      value={filtrelenecek}
+                      onChange={(e) => setFiltrelenecek(e.target.value)}
                     ></input>
                   </div>
                 </div>
               </div>
             </div>
-            <table className="table table-striped table-hover">
-              <thead className="table-primary">
+            <table className="table table-hover table-striped benimtable table-responsive">
+              <thead>
                 <tr>
                   <th scope="col">Fon Kodu</th>
                   <th scope="col">Fon Adı</th>
@@ -322,7 +330,7 @@ export default function FonKarsilastirma() {
                 </tr>
               </thead>
               <tbody>
-                {riskBazliBilgiler.map((fon) => (
+                {filtreBilgiler.map((fon) => (
                   <tr key={fon.fonkodu}>
                     <td>{fon.fonkodu}</td>
                     <td>{fon.fonunvan}</td>
@@ -447,13 +455,15 @@ export default function FonKarsilastirma() {
                       className="form-control benimfiltre"
                       id="filter"
                       placeholder="Ara"
+                      value={filtrelenecek}
+                      onChange={(e) => setFiltrelenecek(e.target.value)}
                     ></input>
                   </div>
                 </div>
               </div>
             </div>
-            <table className="table-striped table-hover">
-              <thead className="tableheader benimheader">
+            <table className="table table-hover table-striped benimtable table-responsive">
+              <thead>
                 <tr>
                   <th scope="col">Fon Kodu</th>
                   <th scope="col">Fon Adı</th>
@@ -467,7 +477,7 @@ export default function FonKarsilastirma() {
                 </tr>
               </thead>
               <tbody>
-                {riskBazliBilgiler.map((fon) => (
+                {filtreBilgiler.map((fon) => (
                   <tr key={fon.fonkodu}>
                     <td>{fon.fonkodu}</td>
                     <td>{fon.fonunvan}</td>
@@ -556,13 +566,15 @@ export default function FonKarsilastirma() {
                       className="form-control benimfiltre"
                       id="filter"
                       placeholder="Ara"
+                      value={filtrelenecek}
+                      onChange={(e) => setFiltrelenecek(e.target.value)}
                     ></input>
                   </div>
                 </div>
               </div>
             </div>
-            <table className="table-striped table-hover">
-              <thead className="tableheader benimheader">
+            <table className="table table-hover table-striped benimtable table-responsive">
+              <thead>
                 <tr>
                   <th scope="col">Fon Kodu</th>
                   <th scope="col">Fon Adı</th>
@@ -576,7 +588,7 @@ export default function FonKarsilastirma() {
                 </tr>
               </thead>
               <tbody>
-                {riskBazliBilgiler.map((fon) => (
+                {filtreBilgiler.map((fon) => (
                   <tr key={fon.fonkodu}>
                     <td>{fon.fonkodu}</td>
                     <td>{fon.fonunvan}</td>
