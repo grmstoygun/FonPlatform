@@ -20,13 +20,16 @@ const GetiriTalepPage = ({setResponseData}) => {
     const navigate = useNavigate();
 
     const postData = async () => {
+        const token = localStorage.getItem('authToken');
         const url = 'http://localhost:8080/v1/fongetiri/arama';
         const data = {kod};
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    "Access-Control-Allow-Origin": "*"
                 },
                 body: JSON.stringify(data)
             });

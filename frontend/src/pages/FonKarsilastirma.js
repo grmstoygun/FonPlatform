@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./css/FonKarsilastirma.css";
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 export default function FonKarsilastirma() {
   const [seciliFonTipi, setSeciliFonTipi] = useState("YAT");
@@ -24,15 +24,23 @@ export default function FonKarsilastirma() {
 
   const [riskBazliBilgiler, setRiskBazliBilgiler] = useState([]);
 
-  const[filtrelenecek, setFiltrelenecek] = useState("");
+  const [filtrelenecek, setFiltrelenecek] = useState("");
 
   const filtreBilgiler = riskBazliBilgiler.filter((fon) => {
-    return (fon.fonunvan.toLowerCase().includes(filtrelenecek.toLowerCase()) || fon.fonkodu.toLowerCase().includes(filtrelenecek.toLowerCase()));
+    return (
+      fon.fonunvan.toLowerCase().includes(filtrelenecek.toLowerCase()) ||
+      fon.fonkodu.toLowerCase().includes(filtrelenecek.toLowerCase())
+    );
   });
 
   // YAT fonları için kurucu listesini çek
   useEffect(() => {
-    fetch("http://localhost:8080/v1/riskbazli/kurucular/YAT")
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/kurucular/YAT", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setYatKurucuList(data.kurucuList);
@@ -41,7 +49,12 @@ export default function FonKarsilastirma() {
 
   // EMK fonları için kurucu listesini çek
   useEffect(() => {
-    fetch("http://localhost:8080/v1/riskbazli/kurucular/EMK")
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/kurucular/EMK", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setEmkKurucuList(data.kurucuList);
@@ -50,7 +63,12 @@ export default function FonKarsilastirma() {
 
   // BYF fonları için kurucu listesini çek
   useEffect(() => {
-    fetch("http://localhost:8080/v1/riskbazli/kurucular/BYF")
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/kurucular/BYF", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setByfKurucuList(data.kurucuList);
@@ -59,7 +77,12 @@ export default function FonKarsilastirma() {
 
   // Fon Grubu çek
   useEffect(() => {
-    fetch("http://localhost:8080/v1/riskbazli/fongruplari")
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/fongruplari", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setEmkFonGrubuList(data.fonGrubuList);
@@ -68,7 +91,12 @@ export default function FonKarsilastirma() {
 
   // Şemsiye fon türlerini çek
   useEffect(() => {
-    fetch("http://localhost:8080/v1/riskbazli/semsiyefonlar/X")
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/semsiyefonlar/X", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setEmkSemsFonTuruList(data.semsiyeFonList);
@@ -77,7 +105,12 @@ export default function FonKarsilastirma() {
 
   // Emk fon türlerini çek
   useEffect(() => {
-    fetch("http://localhost:8080/v1/riskbazli/fonturleri/EMK")
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/fonturleri/EMK", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setEmkFonTuruList(data.fonTuruList);
@@ -86,7 +119,12 @@ export default function FonKarsilastirma() {
 
   // BYF fon türlerini çek
   useEffect(() => {
-    fetch("http://localhost:8080/v1/riskbazli/fonturleri/BYF")
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/fonturleri/BYF", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setByfFonTuruList(data.fonTuruList);
@@ -95,15 +133,16 @@ export default function FonKarsilastirma() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem("authToken");
       const url = "http://localhost:8080/v1/riskbazli/riskbazlibilgiler";
       let fonturkod;
-  
+
       if (seciliFonTipi === "EMK") {
         fonturkod = seciliFonTuru === "Tümü" ? "null" : seciliFonTuru;
       } else if (seciliFonTipi === "BYF") {
         fonturkod = seciliFonTuru === "Tümü" ? "null" : seciliFonTuru;
       }
-  
+
       const requestBody = {
         fontipi: seciliFonTipi,
         kurucukod: seciliKurucu === "Tümü" ? "" : seciliKurucu,
@@ -112,21 +151,21 @@ export default function FonKarsilastirma() {
         sfonturu: seciliSemsFonTuru === "Tümü" ? "null" : seciliSemsFonTuru,
         fonturaciklama: "",
       };
-  
+
       try {
-        console.log("Sending request:", requestBody);
         const response = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify(requestBody),
         });
-  
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
+
         const data = await response.json();
         console.log("Received response:", data);
         setRiskBazliBilgiler(data.riskBazliBilgiList);
@@ -134,9 +173,15 @@ export default function FonKarsilastirma() {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData(); // Call the async function
-  }, [seciliEmkFonGrubu, seciliFonTipi, seciliFonTuru, seciliKurucu, seciliSemsFonTuru]);
+  }, [
+    seciliEmkFonGrubu,
+    seciliFonTipi,
+    seciliFonTuru,
+    seciliKurucu,
+    seciliSemsFonTuru,
+  ]);
 
   const handleEmkFonGrubuChange = (e) => {
     setSeciliEmkFonGrubu(e.target.value);
@@ -251,10 +296,7 @@ export default function FonKarsilastirma() {
                 value={seciliSemsFonTuru}
                 onChange={handleSemsFonTuruChange}
               >
-                <option
-                  value="Tümü"
-                  onChange={handleSemsFonTuruChange}
-                >
+                <option value="Tümü" onChange={handleSemsFonTuruChange}>
                   Tümü
                 </option>
                 {emkSemsFonTuruList.map((semsfon) => (
@@ -408,11 +450,7 @@ export default function FonKarsilastirma() {
                 value={seciliEmkFonGrubu}
                 onChange={handleEmkFonGrubuChange}
               >
-                <option
-                  
-                  value="Tümü"
-                  onChange={handleEmkFonGrubuChange}
-                >
+                <option value="Tümü" onChange={handleEmkFonGrubuChange}>
                   Tümü
                 </option>
                 {emkFonGrubuList.map((fongrubu) => (

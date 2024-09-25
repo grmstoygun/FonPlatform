@@ -7,6 +7,7 @@ import GetiriSonuc from './pages/GetiriSonuc';
 import GetiriTalepPage from './pages/GetiriTalep';
 import React, { useState } from 'react';
 import FonKarsilastirma from './pages/FonKarsilastirma';
+import { LoginSignup } from './pages/LoginSignup';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/getiritalep" element={<GetiriTalepPage setResponseData={setResponseData}/>}></Route>
           <Route exact path="/getiriler" element={<GetiriSonuc responseData={responseData}/>}></Route>
           <Route exact path="/fonkarsilastirma" element={<FonKarsilastirma/>}></Route>
+          <Route exact path="/giriskayit" element={<LoginSignup/>}></Route>
         </Routes>
       </Router>
       

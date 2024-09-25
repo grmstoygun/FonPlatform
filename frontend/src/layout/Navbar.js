@@ -1,14 +1,53 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Navbar() {
+
+  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setAuthToken(localStorage.getItem("authToken"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  const handleNavigation = (path) => {
+    const token = localStorage.getItem("authToken");
+    if(!token){
+      toast.error("Önce giriş yapmalısınız.");
+    }
+    else{
+      navigate(path);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setAuthToken(null);
+    toast.success("Çıkış yapıldı.");
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+  };
+
+  
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg fixed-top">
         <div className="container-fluid">
           <a className="navbar-brand me-auto" href="/">
             <img
-              src={require("../takasbank-logo.png")}
+              src={require("../assets/takasbank-logo.png")}
               alt="Center"
               className="takaslogo"
             ></img>
@@ -38,22 +77,28 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link mx-lg-2" href="/getiritalep">
+                  <button className="nav-link mx-lg-2" onClick={() => handleNavigation("/getiritalep")} >
                     Fon Getiri
-                  </a>
+                  </button>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link mx-lg-2" href="/fonkarsilastirma">
+                  <button className="nav-link mx-lg-2" onClick={() => handleNavigation("/fonkarsilastirma")}>
                     Fon Karşılaştırma
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <a href="/" className="login-button">
-          Login
-        </a>
+        {authToken ? (
+          <a onClick={handleLogout} className="login-button">
+            Çıkış
+          </a>
+        ) : (
+          <a href="/giriskayit" className="login-button">
+            Giriş
+          </a>
+        )}
         <button
             className="navbar-toggler"
             type="button"
@@ -65,6 +110,7 @@ export default function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
       </nav>
+      <ToastContainer />
     </div>
   );
 }

@@ -17,16 +17,18 @@ public class FonPlatformServiceImpl implements FonPlatformService {
     private final FonTuruDaoService fonTuruDaoService;
     private final SemsiyeFonDaoService semsiyeFonDaoService;
     private final RiskBazliBilgiDaoService riskBazliBilgiDaoService;
+    private final SecurityDaoService securityDaoService;
 
     public FonPlatformServiceImpl(FonGetiriDaoService fonGetiriDaoService, FonGrubuDaoService fonGrubuDaoService,
                                   KurucuDaoService kurucuDaoService, FonTuruDaoService fonTuruDaoService, SemsiyeFonDaoService semsiyeFonDaoService
-                                  , RiskBazliBilgiDaoService riskBazliBilgiDaoService) {
+                                  , RiskBazliBilgiDaoService riskBazliBilgiDaoService, SecurityDaoService securityDaoService) {
         this.fonGetiriDaoService = fonGetiriDaoService;
         this.fonGrubuDaoService = fonGrubuDaoService;
         this.kurucuDaoService = kurucuDaoService;
         this.fonTuruDaoService = fonTuruDaoService;
         this.semsiyeFonDaoService = semsiyeFonDaoService;
         this.riskBazliBilgiDaoService = riskBazliBilgiDaoService;
+        this.securityDaoService = securityDaoService;
     }
 
     @Override
@@ -81,6 +83,16 @@ public class FonPlatformServiceImpl implements FonPlatformService {
             throw new FonNotFoundException("Risk bazlı bilgi listesi bulunamadı.");
         }
         return riskBazliBilgiList;
+    }
+
+    @Override
+    public RegisterResponse sendRegisterRequest(RegisterRequest registerRequest) {
+        return securityDaoService.registerUser(registerRequest);
+    }
+
+    @Override
+    public LoginResponse sendLoginRequest(LoginRequest loginRequest) {
+        return securityDaoService.loginUser(loginRequest);
     }
 
 }
