@@ -45,4 +45,10 @@ public class RiskBazliController {
     public ResponseEntity<RiskBazliBilgiListResponse> listRiskBazliBilgi(@RequestBody RiskBazliBilgiListRequest riskBazliBilgiListRequest) {
         return ResponseEntity.ok(fonPlatformService.sendRiskBazliBilgiListRequest(riskBazliBilgiListRequest));
     }
+
+    @CrossOrigin("http://localhost:3000")
+    @GetMapping("/unvantipi/{fonTipi}")
+    public ResponseEntity<UnvanTipiResponse> getUnvanTipi(@PathVariable String fonTipi) {
+        return ResponseEntity.ok(fonPlatformService.sendUnvanTipiRequest(new UnvanTipiRequest(fonTipi)));
+    }
 }

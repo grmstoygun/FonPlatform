@@ -9,12 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RiskBazliBilgiListRequest {
+public class UnvanTipiRequest {
     private String fontipi;
-    private String kurucukod;
-    private Integer fonturkod;
-    private Integer fongrubu;
-    private Integer sfonturkod;
-    private String fonturaciklama;
-    private String unvantipi;
 }

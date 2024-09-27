@@ -1,24 +1,11 @@
-import React, {useEffect, useState} from "react";
+
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { toast, ToastContainer } from "react-toastify";
 
-export default function Navbar() {
+export default function Navbar({authToken, setAuthToken}) {
 
-  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setAuthToken(localStorage.getItem("authToken"));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
 
   const handleNavigation = (path) => {
     const token = localStorage.getItem("authToken");
@@ -109,8 +96,8 @@ export default function Navbar() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+          <ToastContainer />
       </nav>
-      <ToastContainer />
     </div>
   );
 }

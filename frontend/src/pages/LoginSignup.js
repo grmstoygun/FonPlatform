@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-export const LoginSignup = () => {
+export const LoginSignup = ({setAuthToken}) => {
   const [action, setAction] = React.useState("Giriş Yap");
   const [isim, setIsim] = React.useState("");
   const [soyisim, setSoyisim] = React.useState("");
@@ -44,9 +44,10 @@ export const LoginSignup = () => {
       } else if (data.statuscode === 0) {
         toast.success(data.message);
         localStorage.setItem("authToken", data.kullanici.token);
+        setAuthToken(data.kullanici.token);
         setTimeout(() => {
           navigate("/");
-        }, 3000);
+        }, 2500);
       }
     } catch (error) {
       console.error("Error logging in:", error);
@@ -83,7 +84,7 @@ export const LoginSignup = () => {
         toast.success(data.message);
         setTimeout(() => {
           navigate("/");
-        }, 3000);
+        }, 2500);
       }
     } catch (error) {
       console.error("Error registering:", error);

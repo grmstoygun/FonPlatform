@@ -12,4 +12,5 @@ public interface FonPlatformService {
     RiskBazliBilgiListResponse sendRiskBazliBilgiListRequest(RiskBazliBilgiListRequest riskBazliBilgiListRequest);
     RegisterResponse sendRegisterRequest(RegisterRequest registerRequest);
     LoginResponse sendLoginRequest(LoginRequest loginRequest);
+    UnvanTipiResponse sendUnvanTipiRequest(UnvanTipiRequest unvanTipiRequest);
 }

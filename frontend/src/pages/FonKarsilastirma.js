@@ -22,9 +22,19 @@ export default function FonKarsilastirma() {
 
   const [emkFonTuruList, setEmkFonTuruList] = useState([]);
 
+  const [yatUnvanTipiList, setYatUnvanTipiList] = useState([]);
+  const [byfUnvanTipiList, setByfUnvanTipiList] = useState([]);
+  const [seciliUnvanTipi, setSeciliUnvanTipi] = useState("Tümü");
+
   const [riskBazliBilgiler, setRiskBazliBilgiler] = useState([]);
 
   const [filtrelenecek, setFiltrelenecek] = useState("");
+
+  const sfonmap = new Map([
+  ['Hisse Senedi Semsiye Fonu', 104],
+  ['Fon Sepeti Semsiye Fonu', 102],
+  ['Borçlanma Araçlari Semsiye Fonu', 100]
+]);
 
   const filtreBilgiler = riskBazliBilgiler.filter((fon) => {
     return (
@@ -131,6 +141,34 @@ export default function FonKarsilastirma() {
       });
   }, []);
 
+  // YAT fon unvan tiplerini çek
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/unvantipi/YAT", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setYatUnvanTipiList(data.unvanTipiList);
+      });
+  }, []);
+
+  // BYF fon unvan tiplerini çek
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    fetch("http://localhost:8080/v1/riskbazli/unvantipi/BYF", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setByfUnvanTipiList(data.unvanTipiList);
+      });
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("authToken");
@@ -148,8 +186,9 @@ export default function FonKarsilastirma() {
         kurucukod: seciliKurucu === "Tümü" ? "" : seciliKurucu,
         fonturkod: fonturkod,
         fongrubu: seciliEmkFonGrubu === "Tümü" ? "null" : seciliEmkFonGrubu,
-        sfonturu: seciliSemsFonTuru === "Tümü" ? "null" : seciliSemsFonTuru,
+        sfonturkod: seciliSemsFonTuru === "Tümü" ? "null" : seciliSemsFonTuru,
         fonturaciklama: "",
+        unvantipi: seciliUnvanTipi === "Tümü" ? "" : seciliUnvanTipi,
       };
 
       try {
@@ -181,6 +220,7 @@ export default function FonKarsilastirma() {
     seciliFonTuru,
     seciliKurucu,
     seciliSemsFonTuru,
+    seciliUnvanTipi
   ]);
 
   const handleEmkFonGrubuChange = (e) => {
@@ -199,10 +239,15 @@ export default function FonKarsilastirma() {
     setSeciliFonTipi(e.target.value);
     setSeciliKurucu("Tümü");
     setSelectedFonTuru("Tümü");
+    setSeciliUnvanTipi("Tümü");
   };
 
   const handleKurucuChange = (e) => {
     setSeciliKurucu(e.target.value);
+  };
+
+  const handleUnvanTipiChange = (e) => { 
+    setSeciliUnvanTipi(e.target.value);
   };
 
   return (
@@ -301,8 +346,8 @@ export default function FonKarsilastirma() {
                 </option>
                 {emkSemsFonTuruList.map((semsfon) => (
                   <option
-                    key={semsfon.sfonturu}
-                    value={semsfon.sfonturu}
+                    key={semsfon.sfonaciklama}
+                    value={sfonmap.get(semsfon.sfonaciklama)}
                     onChange={handleSemsFonTuruChange}
                   >
                     {semsfon.sfonaciklama}
@@ -316,13 +361,25 @@ export default function FonKarsilastirma() {
                 className="form-select benimselect"
                 aria-label="Default select example"
                 id="unvantipi"
-                defaultValue={"Tümü"}
+                value={seciliUnvanTipi}
+                onChange={handleUnvanTipiChange}
               >
-                <option value="Tümü">Tümü</option>
+                <option value="Tümü" onChange={handleUnvanTipiChange}>
+                  Tümü
+                </option>
+                {yatUnvanTipiList.map((unvantipi) => (
+                  <option
+                    key={unvantipi.unvantipi}
+                    value={unvantipi.unvantipi}
+                    onChange={handleUnvanTipiChange}
+                  >
+                    {unvantipi.unvantipi}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="col-2">
-              <p className="yazitipi mb-0">TEFAS İşlem Durumu</p>
+              {/* <p className="yazitipi mb-0">TEFAS İşlem Durumu</p>
               <select
                 className="form-select benimselect"
                 aria-label="Default select example"
@@ -332,7 +389,7 @@ export default function FonKarsilastirma() {
                 <option value="Tümü">Tümü</option>
                 <option value="İşlem Gören">İşlem Gören</option>
                 <option value="İşlem Görmeyen">İşlem Görmeyen</option>
-              </select>
+              </select> */}
             </div>
           </div>
 
@@ -465,7 +522,7 @@ export default function FonKarsilastirma() {
               </select>
             </div>
             <div className="col-2">
-              <p className="yazitipi mb-0">BEFAS İşlem Durumu</p>
+              {/* <p className="yazitipi mb-0">BEFAS İşlem Durumu</p>
               <select
                 className="form-select benimselect"
                 aria-label="Default select example"
@@ -475,7 +532,7 @@ export default function FonKarsilastirma() {
                 <option value="Tümü">Tümü</option>
                 <option value="İşlem Gören">İşlem Gören</option>
                 <option value="İşlem Görmeyen">İşlem Görmeyen</option>
-              </select>
+              </select> */}
             </div>
           </div>
 
@@ -549,6 +606,7 @@ export default function FonKarsilastirma() {
                 {byfKurucuList.map((kurucu) => (
                   <option key={kurucu.kurucukodu} value={kurucu.kurucukodu}>
                     {kurucu.kurucuunvan}
+                    onChange={handleKurucuChange}
                   </option>
                 ))}
               </select>
@@ -583,9 +641,21 @@ export default function FonKarsilastirma() {
                 className="form-select benimselect"
                 aria-label="Default select example"
                 id="unvantipi"
-                defaultValue={"Tümü"}
+                value={seciliUnvanTipi}
+                onChange={handleUnvanTipiChange}
               >
-                <option>Tümü</option>
+                <option value="Tümü" onChange={handleUnvanTipiChange}>
+                  Tümü
+                </option>
+                {byfUnvanTipiList.map((unvantipi) => (
+                  <option
+                    key={unvantipi.unvantipi}
+                    value={unvantipi.unvantipi}
+                    onChange={handleUnvanTipiChange}
+                  >
+                    {unvantipi.unvantipi}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

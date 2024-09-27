@@ -33,7 +33,9 @@ public class RiskBazliBilgiDaoServiceImpl implements RiskBazliBilgiDaoService {
                         new SqlParameter("p_fonturkod", Types.INTEGER),
                         new SqlParameter("p_fongrubu", Types.INTEGER),
                         new SqlParameter("p_sfonturkod", Types.INTEGER),
-                        new SqlParameter("p_fonturaciklama", Types.VARCHAR)
+                        new SqlParameter("p_fonturaciklama", Types.VARCHAR),
+                        new SqlParameter("p_unvantipi", Types.VARCHAR)
+
                 )
                 .returningResultSet("po_cur1", new RiskBazliBilgiRowMapper());
 
@@ -43,7 +45,8 @@ public class RiskBazliBilgiDaoServiceImpl implements RiskBazliBilgiDaoService {
                 .addValue("p_fonturkod", riskBazliBilgiListRequest.getFonturkod())
                 .addValue("p_fongrubu", riskBazliBilgiListRequest.getFongrubu())
                 .addValue("p_sfonturkod", riskBazliBilgiListRequest.getSfonturkod())
-                .addValue("p_fonturaciklama", riskBazliBilgiListRequest.getFonturaciklama());
+                .addValue("p_fonturaciklama", riskBazliBilgiListRequest.getFonturaciklama())
+                .addValue("p_unvantipi", riskBazliBilgiListRequest.getUnvantipi());
 
         Map<String, Object> result = simpleJdbcCall.execute(inParams);
         return new RiskBazliBilgiListResponse((List<RiskBazliBilgi>) result.get("po_cur1"));

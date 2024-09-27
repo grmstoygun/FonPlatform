@@ -12,16 +12,17 @@ import { LoginSignup } from './pages/LoginSignup';
 function App() {
 
   const [responseData, setResponseData] = useState(null);
+  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar authToken={authToken} setAuthToken={setAuthToken}/>
         <Routes>
           <Route exact path="/" element={<Home/>}></Route>
           <Route exact path="/getiritalep" element={<GetiriTalepPage setResponseData={setResponseData}/>}></Route>
           <Route exact path="/getiriler" element={<GetiriSonuc responseData={responseData}/>}></Route>
           <Route exact path="/fonkarsilastirma" element={<FonKarsilastirma/>}></Route>
-          <Route exact path="/giriskayit" element={<LoginSignup/>}></Route>
+          <Route exact path="/giriskayit" element={<LoginSignup setAuthToken={setAuthToken} />}></Route>
         </Routes>
       </Router>
       

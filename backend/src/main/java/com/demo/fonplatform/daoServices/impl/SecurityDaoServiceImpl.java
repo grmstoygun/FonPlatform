@@ -54,7 +54,7 @@ public class SecurityDaoServiceImpl implements SecurityDaoService {
         try{
             Kullanici kullanici = findUserByEmail(loginRequest.getEmail());
             if(passwordEncoder.matches(CharBuffer.wrap(loginRequest.getSifre()), kullanici.getSifre())){
-                return new LoginResponse(kullanici, 0, "Giriş başarılı.");
+                return new LoginResponse(kullanici, 0, "Giriş başarılı. Yönlendiriliyorsunuz...");
             } else {
                 return new LoginResponse(null, 1, "Email veya şifre hatalı. Lütfen tekrar deneyin.");
             }

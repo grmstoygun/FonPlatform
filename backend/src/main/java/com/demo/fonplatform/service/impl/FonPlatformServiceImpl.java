@@ -18,10 +18,11 @@ public class FonPlatformServiceImpl implements FonPlatformService {
     private final SemsiyeFonDaoService semsiyeFonDaoService;
     private final RiskBazliBilgiDaoService riskBazliBilgiDaoService;
     private final SecurityDaoService securityDaoService;
+    private final UnvanTipiDaoService unvanTipiDaoService;
 
     public FonPlatformServiceImpl(FonGetiriDaoService fonGetiriDaoService, FonGrubuDaoService fonGrubuDaoService,
                                   KurucuDaoService kurucuDaoService, FonTuruDaoService fonTuruDaoService, SemsiyeFonDaoService semsiyeFonDaoService
-                                  , RiskBazliBilgiDaoService riskBazliBilgiDaoService, SecurityDaoService securityDaoService) {
+                                  , RiskBazliBilgiDaoService riskBazliBilgiDaoService, SecurityDaoService securityDaoService, UnvanTipiDaoService unvanTipiDaoService) {
         this.fonGetiriDaoService = fonGetiriDaoService;
         this.fonGrubuDaoService = fonGrubuDaoService;
         this.kurucuDaoService = kurucuDaoService;
@@ -29,6 +30,7 @@ public class FonPlatformServiceImpl implements FonPlatformService {
         this.semsiyeFonDaoService = semsiyeFonDaoService;
         this.riskBazliBilgiDaoService = riskBazliBilgiDaoService;
         this.securityDaoService = securityDaoService;
+        this.unvanTipiDaoService = unvanTipiDaoService;
     }
 
     @Override
@@ -93,6 +95,15 @@ public class FonPlatformServiceImpl implements FonPlatformService {
     @Override
     public LoginResponse sendLoginRequest(LoginRequest loginRequest) {
         return securityDaoService.loginUser(loginRequest);
+    }
+
+    @Override
+    public UnvanTipiResponse sendUnvanTipiRequest(UnvanTipiRequest unvanTipiRequest){
+        UnvanTipiResponse unvanTipiList = unvanTipiDaoService.listUnvanTipi(unvanTipiRequest);
+        if(unvanTipiList == null){
+            throw new FonNotFoundException("Unvan tipi listesi bulunamadı.");
+        }
+        return unvanTipiList;
     }
 
 }
