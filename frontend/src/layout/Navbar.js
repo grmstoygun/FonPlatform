@@ -78,6 +78,11 @@ export default function Navbar({authToken, setAuthToken}) {
                     TEFAS Veri Yükle
                   </button>
                 </li>
+                <li className="nav-item">
+                  <button className="nav-link mx-lg-2" onClick={() => handleNavigation("/tefas-fonlar")}>
+                    TEFAS Fon Listesi
+                  </button>
+                </li>
               </ul>
             </div>
           </div>

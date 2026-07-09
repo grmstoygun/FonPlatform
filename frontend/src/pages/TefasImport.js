@@ -57,18 +57,18 @@ export default function TefasImport() {
               <p className="text-muted mb-4">
                 TEFAS web sitesinden indirdiğiniz <strong>Fon Getirileri</strong> (CSV) dosyasını buraya yükleyerek fonların dönemsel getirilerini ve risk analiz katsayılarını otomatik olarak güncelleyebilirsiniz.
               </p>
-              
+
               <div className="mb-4">
-                <input 
+                <input
                   id="csvFileInput"
-                  type="file" 
-                  className="form-control form-control-lg" 
+                  type="file"
+                  className="form-control form-control-lg"
                   accept=".csv"
                   onChange={handleFileChange}
                 />
               </div>
 
-              <button 
+              <button
                 className="btn btn-primary btn-lg w-100 rounded-pill fw-bold"
                 onClick={handleUpload}
                 disabled={loading || !file}

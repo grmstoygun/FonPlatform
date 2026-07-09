@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import FonKarsilastirma from './pages/FonKarsilastirma';
 import { LoginSignup } from './pages/LoginSignup';
 import TefasImport from './pages/TefasImport';
+import TefasFonListesi from './pages/TefasFonListesi';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/fonkarsilastirma" element={<FonKarsilastirma/>}></Route>
           <Route exact path="/giriskayit" element={<LoginSignup setAuthToken={setAuthToken} />}></Route>
           <Route exact path="/tefas-yukle" element={<TefasImport/>}></Route>
+          <Route exact path="/tefas-fonlar" element={<TefasFonListesi/>}></Route>
         </Routes>
       </Router>
       

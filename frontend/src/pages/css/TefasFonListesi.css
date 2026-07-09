@@ -1,0 +1,141 @@
+.anacontainer {
+  padding-top: 90px;
+  min-height: 100vh;
+}
+
+.tefas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tefas-baslik {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin-bottom: 4px;
+}
+
+.tefas-aciklama {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.arama-input {
+  border: 2px solid #dee2e6;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  width: 280px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.arama-input:focus {
+  border-color: #0d6efd;
+}
+
+.tefas-loading {
+  text-align: center;
+  padding: 60px;
+  color: #6c757d;
+}
+
+.tefas-loading p {
+  margin-top: 12px;
+}
+
+.tefas-sonuc {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.tablo-kap {
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.tefas-tablo {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tefas-tablo thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #1e3a5f;
+  color: white;
+}
+
+.tefas-tablo th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.tefas-tablo th.sayi,
+.tefas-tablo td.sayi {
+  text-align: right;
+}
+
+.tefas-tablo tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+
+.tefas-tablo tbody tr:hover {
+  background: #f0f6ff;
+}
+
+.tefas-tablo td {
+  padding: 9px 16px;
+  color: #2d3748;
+}
+
+.kod-hucre {
+  font-weight: 700;
+  font-family: monospace;
+  font-size: 1rem;
+  color: #1e3a5f;
+}
+
+.positive {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.negative {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.sirala {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sirala:hover {
+  background: #16325e;
+}
+
+.sort-icon {
+  margin-left: 4px;
+  opacity: 0.4;
+  font-size: 0.8rem;
+}
+
+.sort-icon.active {
+  opacity: 1;
+}
