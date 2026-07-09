@@ -47,7 +47,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     );
                 } catch (Exception e) {
                     SecurityContextHolder.clearContext();
-                    throw e;
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://localhost:3000");
+                    response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+                    response.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=UTF-8");
+                    response.getWriter().write("{\"message\": \"Oturum süreniz dolmuş, lütfen tekrar giriş yapınız.\"}");
+                    return;
                 }
             }
         }
