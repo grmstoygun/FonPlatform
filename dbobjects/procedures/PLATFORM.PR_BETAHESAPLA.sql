@@ -32,3 +32,5 @@ begin
        when others then
          raise_application_error(-20001, 'Beta Katsayisi Hesaplanirken Hata Alindi: ' || sqlerrm);
 end;
+
+/

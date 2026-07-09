@@ -35,3 +35,5 @@ begin
          raise_application_error(-20001, 'Alfa Katsayisi Hesaplanirken Hata Alindi: ' || sqlerrm);
   
 end;
+
+/

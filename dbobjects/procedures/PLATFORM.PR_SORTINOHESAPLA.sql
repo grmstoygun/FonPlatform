@@ -45,3 +45,5 @@ begin
          raise_application_error(-20001, 'Sortino Orani Hesaplanirken Hata Alindi: ' || sqlerrm);
   
 end;
+
+/

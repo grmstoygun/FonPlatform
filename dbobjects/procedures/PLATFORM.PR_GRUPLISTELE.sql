@@ -6,3 +6,5 @@ begin
   open po_cur1 for
   select distinct fongrubu, fongrupaciklama from tb_gruplar order by fongrupaciklama;
 end;
+
+/

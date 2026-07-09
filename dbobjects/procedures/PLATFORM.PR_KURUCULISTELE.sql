@@ -23,3 +23,5 @@ begin
          where k.uyetipi = 'P' and k.fontipi = 'N' order by 2;
   end if;
 end;
+
+/

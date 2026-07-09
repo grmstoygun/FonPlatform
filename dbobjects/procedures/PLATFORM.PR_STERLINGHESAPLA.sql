@@ -43,3 +43,5 @@ begin
          raise_application_error(-20001, 'Sterling Orani Hesaplanirken Hata Alindi: ' || sqlerrm);
   
 end;
+
+/

@@ -34,3 +34,5 @@ begin
        when others then
          raise_application_error(-20001, 'Sharpe Orani Hesaplanirken Hata Alindi: ' || sqlerrm);
 end;
+
+/

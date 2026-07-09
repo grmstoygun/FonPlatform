@@ -6,3 +6,5 @@ begin
   open po_cur1 for
   select distinct sfonturu, sfonaciklama from tb_semsiye f where f.fontipi = p_fontipi order by sfonaciklama;
 end ;
+
+/

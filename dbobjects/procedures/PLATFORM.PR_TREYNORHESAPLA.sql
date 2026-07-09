@@ -33,3 +33,5 @@ begin
        when others then
          raise_application_error(-20001, 'Treynor Orani Hesaplanirken Hata Alindi: ' || sqlerrm);
 end;
+
+/
