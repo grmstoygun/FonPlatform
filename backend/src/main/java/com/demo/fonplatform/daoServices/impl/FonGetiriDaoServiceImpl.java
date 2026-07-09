@@ -26,7 +26,7 @@ public class FonGetiriDaoServiceImpl implements FonGetiriDaoService {
     public FonGetiriResponse searchFonGetiri(FonGetiriRequest fonGetiriRequest) throws DataAccessException {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withProcedureName("PR_GETIRILISTELE")
-                .withSchemaName("TOYGUN")
+                .withSchemaName("OGUZHAN")
                 .declareParameters(new SqlParameter("p_fonkodu", Types.VARCHAR))
                 .returningResultSet("po_cur", new FonGetiriRowMapper());
 
@@ -34,6 +34,10 @@ public class FonGetiriDaoServiceImpl implements FonGetiriDaoService {
                 .addValue("p_fonkodu", fonGetiriRequest.getKod());
 
         Map<String, Object> result = simpleJdbcCall.execute(inParams);
-        return new FonGetiriResponse(((List<FonGetiri>) result.get("po_cur")).getFirst());
+        List<FonGetiri> list = (List<FonGetiri>) result.get("po_cur");
+        if (list == null || list.isEmpty()) {
+            return new FonGetiriResponse(null);
+        }
+        return new FonGetiriResponse(list.getFirst());
     }
 }
