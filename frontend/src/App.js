@@ -8,6 +8,7 @@ import GetiriTalepPage from './pages/GetiriTalep';
 import React, { useState } from 'react';
 import FonKarsilastirma from './pages/FonKarsilastirma';
 import { LoginSignup } from './pages/LoginSignup';
+import TefasImport from './pages/TefasImport';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/getiriler" element={<GetiriSonuc responseData={responseData}/>}></Route>
           <Route exact path="/fonkarsilastirma" element={<FonKarsilastirma/>}></Route>
           <Route exact path="/giriskayit" element={<LoginSignup setAuthToken={setAuthToken} />}></Route>
+          <Route exact path="/tefas-yukle" element={<TefasImport/>}></Route>
         </Routes>
       </Router>
       

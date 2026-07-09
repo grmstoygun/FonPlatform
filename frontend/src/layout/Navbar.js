@@ -73,6 +73,11 @@ export default function Navbar({authToken, setAuthToken}) {
                     Fon Karşılaştırma
                   </button>
                 </li>
+                <li className="nav-item">
+                  <button className="nav-link mx-lg-2" onClick={() => handleNavigation("/tefas-yukle")}>
+                    TEFAS Veri Yükle
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
