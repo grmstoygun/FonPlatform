@@ -16,4 +16,5 @@ public class TefasFonGetiri {
     private Float aag; // 6 Aylık getiri
     private Float uag; // 3 Aylık getiri
     private Float yilliktahmin; // Yıllık tahmin
+    private String kayitTarihi;
 }

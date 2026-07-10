@@ -3,6 +3,7 @@ import './css/TefasFonListesi.css';
 
 export default function TefasFonListesi() {
   const [fonlar, setFonlar] = useState([]);
+  const [guncellemeTarihi, setGuncellemeTarihi] = useState("Yükleniyor...");
   const [aramaMetni, setAramaMetni] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: 'kod', direction: 'asc' });
   const [loading, setLoading] = useState(true);
@@ -26,6 +27,14 @@ export default function TefasFonListesi() {
         setHata(err.message);
         setLoading(false);
       });
+
+    // Kayıt tarihini çeken ayrı bir istek (Adım 4)
+    fetch('http://localhost:8080/v1/kayittarihi', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data) => setGuncellemeTarihi(data.kayitTarihi))
+      .catch((err) => console.log("Tarih çekilemedi", err));
   }, []);
 
   const handleSil = (kod) => {
@@ -138,7 +147,9 @@ export default function TefasFonListesi() {
 
       {!loading && !hata && (
         <>
-          <p className="tefas-sonuc">{sirali.length} fon gösteriliyor</p>
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <p className="tefas-sonuc mb-0">{sirali.length} fon gösteriliyor</p>
+          </div>
           <div className="tablo-kap">
             <table className="tefas-tablo">
               <thead>
@@ -161,7 +172,10 @@ export default function TefasFonListesi() {
                   <th onClick={() => handleSort('yg')} className="sirala sayi">
                     YTD (%) <SortIcon col="yg" />
                   </th>
-                  <th><button className='btn btn-danger btn' onClick={handleSilAll} >Hepsini Sil</button></th>
+                  <th onClick={() => handleSort('kayitTarihi')} className="sirala">
+                    Kayıt Tarihi <SortIcon col="kayitTarihi" />
+                  </th>
+                  <th><button className='btn btn-danger btn-sm' onClick={handleSilAll} >Hepsini Sil</button></th>
                 </tr>
               </thead>
               <tbody>
@@ -173,6 +187,7 @@ export default function TefasFonListesi() {
                     <td className={`sayi ${renk(fon.aag)}`}>{fmt(fon.aag)}</td>
                     <td className={`sayi ${renk(fon.yilliktahmin)}`}>{fmt(fon.yilliktahmin)}</td>
                     <td className={`sayi ${renk(fon.yg)}`}>{fmt(fon.yg)}</td>
+                    <td className="sayi">{fon.kayitTarihi || '—'}</td>
                     <td><button className='btn btn-danger btn-sm' onClick={() => handleSil(fon.kod)}>Sil</button></td>
                   </tr>
                 ))}

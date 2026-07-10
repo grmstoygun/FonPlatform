@@ -9,4 +9,7 @@ public interface TefasFonListesiDaoService {
     void deleteFonGetiri(String kod);
 
     void deleteAllFonGetiri();
+
+    public String getSonGuncellenmeTarihi();
+
 }

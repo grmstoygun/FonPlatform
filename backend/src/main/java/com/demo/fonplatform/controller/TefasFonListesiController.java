@@ -30,6 +30,14 @@ public class TefasFonListesiController {
         return ResponseEntity.ok("Fon başarıyla silindi");
     }
 
+    @GetMapping("/kayittarihi")
+    public ResponseEntity<Map<String, Object>> getSonKayitTarihi() {
+        String kayitTarihi = tefasFonListesiDaoService.getSonGuncellenmeTarihi();
+        Map<String, Object> response = new HashMap<>();
+        response.put("kayitTarihi", kayitTarihi);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/fonlar")
     public ResponseEntity<Map<String, Object>> getAllFonlar() {
         List<TefasFonGetiri> fonlar = tefasFonListesiDaoService.getAllFonGetiri();

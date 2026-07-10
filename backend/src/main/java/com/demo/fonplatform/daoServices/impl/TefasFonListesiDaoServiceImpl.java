@@ -26,6 +26,13 @@ public class TefasFonListesiDaoServiceImpl implements TefasFonListesiDaoService 
         jdbcTemplate.update(sql);
     }
 
+    @Override
+    public String getSonGuncellenmeTarihi() {
+        String sql = "SELECT TO_CHAR(MAX(KAYIT_TARIHI), 'DD.MM.YYYY HH24:MI') FROM OGUZHAN.TB_OGUZHANGETIRI";
+        String tarih = jdbcTemplate.queryForObject(sql, String.class);
+        return tarih != null ? tarih : "Henüz veri yok";
+    }
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -37,7 +44,8 @@ public class TefasFonListesiDaoServiceImpl implements TefasFonListesiDaoService 
                 "MAX(CASE WHEN tip = 'YG'  THEN deger END) AS yg, " +
                 "MAX(CASE WHEN tip = 'AG'  THEN deger END) AS ag, " +
                 "MAX(CASE WHEN tip = 'AAG' THEN deger END) AS aag, " +
-                "MAX(CASE WHEN tip = 'UAG' THEN deger END) AS uag " +
+                "MAX(CASE WHEN tip = 'UAG' THEN deger END) AS uag, " +
+                "TO_CHAR(MAX(kayit_tarihi), 'DD.MM.YYYY HH24:MI') AS kayitTarihi " +
                 "FROM OGUZHAN.TB_OGUZHANGETIRI " +
                 "GROUP BY kod " +
                 "ORDER BY kod";
@@ -52,6 +60,7 @@ public class TefasFonListesiDaoServiceImpl implements TefasFonListesiDaoService 
                 f.setAag(rs.getObject("aag") != null ? rs.getFloat("aag") : null);
                 f.setUag(rs.getObject("uag") != null ? rs.getFloat("uag") : null);
                 f.setYilliktahmin(f.getAg() * 12);
+                f.setKayitTarihi(rs.getString("kayitTarihi"));
                 return f;
             }
         });
