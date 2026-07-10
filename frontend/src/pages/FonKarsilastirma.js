@@ -31,10 +31,10 @@ export default function FonKarsilastirma() {
   const [filtrelenecek, setFiltrelenecek] = useState("");
 
   const sfonmap = new Map([
-  ['Hisse Senedi Semsiye Fonu', 104],
-  ['Fon Sepeti Semsiye Fonu', 102],
-  ['Borçlanma Araçlari Semsiye Fonu', 100]
-]);
+    ['Hisse Senedi Semsiye Fonu', 104],
+    ['Fon Sepeti Semsiye Fonu', 102],
+    ['Borçlanma Araçlari Semsiye Fonu', 100]
+  ]);
 
   const filtreBilgiler = riskBazliBilgiler.filter((fon) => {
     return (
@@ -240,13 +240,14 @@ export default function FonKarsilastirma() {
     setSeciliKurucu("Tümü");
     setSelectedFonTuru("Tümü");
     setSeciliUnvanTipi("Tümü");
+    setFiltrelenecek("");
   };
 
   const handleKurucuChange = (e) => {
     setSeciliKurucu(e.target.value);
   };
 
-  const handleUnvanTipiChange = (e) => { 
+  const handleUnvanTipiChange = (e) => {
     setSeciliUnvanTipi(e.target.value);
   };
 
@@ -318,14 +319,14 @@ export default function FonKarsilastirma() {
                 value={seciliKurucu}
                 onChange={handleKurucuChange}
               >
-                <option value="Tümü" onChange={handleKurucuChange}>
+                <option value="Tümü">
                   Tümü
                 </option>
                 {yatKurucuList.map((kurucu) => (
                   <option
                     key={kurucu.kurucukodu}
                     value={kurucu.kurucukodu}
-                    onChange={handleKurucuChange}
+
                   >
                     {kurucu.kurucuunvan}
                   </option>
@@ -341,14 +342,13 @@ export default function FonKarsilastirma() {
                 value={seciliSemsFonTuru}
                 onChange={handleSemsFonTuruChange}
               >
-                <option value="Tümü" onChange={handleSemsFonTuruChange}>
+                <option value="Tümü">
                   Tümü
                 </option>
                 {emkSemsFonTuruList.map((semsfon) => (
                   <option
                     key={semsfon.sfonaciklama}
                     value={sfonmap.get(semsfon.sfonaciklama)}
-                    onChange={handleSemsFonTuruChange}
                   >
                     {semsfon.sfonaciklama}
                   </option>
@@ -364,14 +364,13 @@ export default function FonKarsilastirma() {
                 value={seciliUnvanTipi}
                 onChange={handleUnvanTipiChange}
               >
-                <option value="Tümü" onChange={handleUnvanTipiChange}>
+                <option value="Tümü">
                   Tümü
                 </option>
                 {yatUnvanTipiList.map((unvantipi) => (
                   <option
                     key={unvantipi.unvantipi}
                     value={unvantipi.unvantipi}
-                    onChange={handleUnvanTipiChange}
                   >
                     {unvantipi.unvantipi}
                   </option>
@@ -461,14 +460,14 @@ export default function FonKarsilastirma() {
                 defaultValue={"Tümü"}
                 onChange={handleKurucuChange}
               >
-                <option value="Tümü" onChange={handleKurucuChange}>
+                <option value="Tümü">
                   Tümü
                 </option>
                 {emkKurucuList.map((kurucu) => (
                   <option
                     key={kurucu.kurucukodu}
                     value={kurucu.kurucukodu}
-                    onChange={handleKurucuChange}
+
                   >
                     {kurucu.kurucuunvan}
                   </option>
@@ -606,7 +605,6 @@ export default function FonKarsilastirma() {
                 {byfKurucuList.map((kurucu) => (
                   <option key={kurucu.kurucukodu} value={kurucu.kurucukodu}>
                     {kurucu.kurucuunvan}
-                    onChange={handleKurucuChange}
                   </option>
                 ))}
               </select>
