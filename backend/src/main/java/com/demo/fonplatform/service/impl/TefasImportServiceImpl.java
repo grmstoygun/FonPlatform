@@ -30,7 +30,7 @@ public class TefasImportServiceImpl implements TefasImportService {
 
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
-            
+
             // Dosyanın ilk 3 satırı meta veri (Tarih, Kayıt sayısı, boş satır)
             // 4. satır ise başlık (Header). Bu nedenle ilk 3 satırı atlıyoruz.
             for (int i = 0; i < 3; i++) {
@@ -51,23 +51,29 @@ public class TefasImportServiceImpl implements TefasImportService {
                         continue;
                     }
 
-                    // Getiri değerlerini güvenle parse etmek için özel bir yardımcı metod kullanıyoruz.
+                    // Getiri değerlerini güvenle parse etmek için özel bir yardımcı metod
+                    // kullanıyoruz.
                     Float ag = parseFloatSafe(record.get("1 Ay (%)"));
                     Float uag = parseFloatSafe(record.get("3 Ay (%)"));
                     Float aag = parseFloatSafe(record.get("6 Ay (%)"));
                     Float yg = parseFloatSafe(record.get("Yılbaşından İtibaren (%)"));
 
                     // Her fonun her getiri tipi için ayrı satır ekliyoruz [kod, tip, deger]
-                    if (yg  != null) batchArgs.add(new Object[]{ kod, "YG",  yg  });
-                    if (ag  != null) batchArgs.add(new Object[]{ kod, "AG",  ag  });
-                    if (aag != null) batchArgs.add(new Object[]{ kod, "AAG", aag });
-                    if (uag != null) batchArgs.add(new Object[]{ kod, "UAG", uag });
+                    if (yg != null)
+                        batchArgs.add(new Object[] { kod, "YG", yg });
+                    if (ag != null)
+                        batchArgs.add(new Object[] { kod, "AG", ag });
+                    if (aag != null)
+                        batchArgs.add(new Object[] { kod, "AAG", aag });
+                    if (uag != null)
+                        batchArgs.add(new Object[] { kod, "UAG", uag });
                 }
             }
         }
 
         // Tablo yapısı: GETIRIID (PK), KOD, TIP, DEGER
-        // Önce bu fonların mevcut kayıtlarını sil, sonra yeniden ekle (basit ve güvenilir)
+        // Önce bu fonların mevcut kayıtlarını sil, sonra yeniden ekle (basit ve
+        // güvenilir)
         // Benzersiz kod listesi çıkar
         java.util.Set<String> kodlar = new java.util.LinkedHashSet<>();
         for (Object[] row : batchArgs) {
@@ -77,18 +83,17 @@ public class TefasImportServiceImpl implements TefasImportService {
         // Mevcut kayıtları sil
         for (String kod : kodlar) {
             jdbcTemplate.update(
-                "DELETE FROM OGUZHAN.TB_OGUZHANGETIRI WHERE kod = ?",
-                new Object[]{ kod },
-                new int[]{ Types.VARCHAR }
-            );
+                    "DELETE FROM OGUZHAN.TB_OGUZHANGETIRI WHERE kod = ?",
+                    new Object[] { kod },
+                    new int[] { Types.VARCHAR });
         }
 
         // Yeni kayıtları ekle
         String insertSql = "INSERT INTO OGUZHAN.TB_OGUZHANGETIRI (getiriid, kod, tip, deger) VALUES (OGUZHAN.S_GETIRIID.NEXTVAL, ?, ?, ?)";
         int[] insertTypes = { Types.VARCHAR, Types.VARCHAR, Types.FLOAT };
-        for (Object[] row : batchArgs) {
-            jdbcTemplate.update(insertSql, row, insertTypes);
-        }
+        // for (Object[] row : batchArgs) {
+        jdbcTemplate.batchUpdate(insertSql, batchArgs, insertTypes);
+        // }
 
         // İşlem bittikten sonra risk katsayılarını hesaplayan prosedürü çağır.
         try {
@@ -104,7 +109,8 @@ public class TefasImportServiceImpl implements TefasImportService {
             return null; // Boş veya tanımsız getiri verisi
         }
         try {
-            // Türkiye standardındaki virgüllü (Örn: 3,1365) rakamları noktaya çevirip parse ediyoruz.
+            // Türkiye standardındaki virgüllü (Örn: 3,1365) rakamları noktaya çevirip parse
+            // ediyoruz.
             return Float.parseFloat(value.trim().replace(".", "").replace(",", "."));
         } catch (NumberFormatException e) {
             return null;

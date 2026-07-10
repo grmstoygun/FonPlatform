@@ -79,10 +79,11 @@ export default function TefasFonListesi() {
         <input
           type="text"
           className="arama-input"
-          placeholder="🔍 Fon kodu ile ara..."
+          placeholder="🔍 Fon Kodu ile ara..."
           value={aramaMetni}
           onChange={(e) => setAramaMetni(e.target.value)}
         />
+        {aramaMetni.length > 0 && <button className='btn btn-danger btn-sm' onClick={() => setAramaMetni("")} > X </button>}
       </div>
 
       {loading && (
@@ -115,6 +116,9 @@ export default function TefasFonListesi() {
                   <th onClick={() => handleSort('aag')} className="sirala sayi">
                     6 Aylık (%) <SortIcon col="aag" />
                   </th>
+                  <th onClick={() => handleSort('yilliktahmin')} className="sirala sayi">
+                    Yıllık Tahmin (%) <SortIcon col="yilliktahmin" />
+                  </th>
                   <th onClick={() => handleSort('yg')} className="sirala sayi">
                     YTD (%) <SortIcon col="yg" />
                   </th>
@@ -127,6 +131,7 @@ export default function TefasFonListesi() {
                     <td className={`sayi ${renk(fon.ag)}`}>{fmt(fon.ag)}</td>
                     <td className={`sayi ${renk(fon.uag)}`}>{fmt(fon.uag)}</td>
                     <td className={`sayi ${renk(fon.aag)}`}>{fmt(fon.aag)}</td>
+                    <td className={`sayi ${renk(fon.yilliktahmin)}`}>{fmt(fon.yilliktahmin)}</td>
                     <td className={`sayi ${renk(fon.yg)}`}>{fmt(fon.yg)}</td>
                   </tr>
                 ))}
