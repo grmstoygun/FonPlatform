@@ -14,6 +14,18 @@ import java.util.List;
 @Repository
 public class TefasFonListesiDaoServiceImpl implements TefasFonListesiDaoService {
 
+    @Override
+    public void deleteFonGetiri(String kod) {
+        String sql = "DELETE FROM OGUZHAN.TB_OGUZHANGETIRI WHERE kod = ?";
+        jdbcTemplate.update(sql, kod);
+    }
+
+    @Override
+    public void deleteAllFonGetiri() {
+        String sql = "DELETE FROM OGUZHAN.TB_OGUZHANGETIRI";
+        jdbcTemplate.update(sql);
+    }
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

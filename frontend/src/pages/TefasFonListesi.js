@@ -28,6 +28,43 @@ export default function TefasFonListesi() {
       });
   }, []);
 
+  const handleSil = (kod) => {
+    const token = localStorage.getItem('authToken');
+    fetch(`http://localhost:8080/v1/fonlar/${kod}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Silme başarısız');
+        return res.text(); // Düz metin okumak için
+      })
+
+      .then(() => {
+        setFonlar(fonlar.filter((f) => f.kod !== kod));
+      })
+      .catch((err) => {
+        setHata(err.message);
+      });
+  }
+
+  const handleSilAll = () => {
+    const token = localStorage.getItem('authToken');
+    fetch('http://localhost:8080/v1/fonlar/all', {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Silme başarısız');
+        return res.text(); // Düz metin okumak için
+      })
+      .then(() => {
+        setFonlar([]);
+      })
+      .catch((err) => {
+        setHata(err.message);
+      });
+  }
+
   const handleSort = (key) => {
     setSortConfig((prev) =>
       prev.key === key
@@ -66,6 +103,8 @@ export default function TefasFonListesi() {
     if (val === null || val === undefined) return '';
     return parseFloat(val) >= 0 ? 'positive' : 'negative';
   };
+
+
 
   return (
     <div className="container anacontainer">
@@ -122,6 +161,7 @@ export default function TefasFonListesi() {
                   <th onClick={() => handleSort('yg')} className="sirala sayi">
                     YTD (%) <SortIcon col="yg" />
                   </th>
+                  <th><button className='btn btn-danger btn' onClick={handleSilAll} >Hepsini Sil</button></th>
                 </tr>
               </thead>
               <tbody>
@@ -133,6 +173,7 @@ export default function TefasFonListesi() {
                     <td className={`sayi ${renk(fon.aag)}`}>{fmt(fon.aag)}</td>
                     <td className={`sayi ${renk(fon.yilliktahmin)}`}>{fmt(fon.yilliktahmin)}</td>
                     <td className={`sayi ${renk(fon.yg)}`}>{fmt(fon.yg)}</td>
+                    <td><button className='btn btn-danger btn-sm' onClick={() => handleSil(fon.kod)}>Sil</button></td>
                   </tr>
                 ))}
               </tbody>

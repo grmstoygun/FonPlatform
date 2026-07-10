@@ -18,6 +18,18 @@ public class TefasFonListesiController {
     @Autowired
     private TefasFonListesiDaoService tefasFonListesiDaoService;
 
+    @DeleteMapping("/fonlar/all")
+    public ResponseEntity<String> deleteAllFon() {
+        tefasFonListesiDaoService.deleteAllFonGetiri();
+        return ResponseEntity.ok("Tüm fonlar başarıyla silindi");
+    }
+
+    @DeleteMapping("/fonlar/{kod}")
+    public ResponseEntity<String> deleteFon(@PathVariable("kod") String kod) {
+        tefasFonListesiDaoService.deleteFonGetiri(kod);
+        return ResponseEntity.ok("Fon başarıyla silindi");
+    }
+
     @GetMapping("/fonlar")
     public ResponseEntity<Map<String, Object>> getAllFonlar() {
         List<TefasFonGetiri> fonlar = tefasFonListesiDaoService.getAllFonGetiri();
